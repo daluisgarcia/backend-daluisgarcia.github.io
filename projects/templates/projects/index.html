@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Luis Projects API</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'admin:index' %}">Customize projects information</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h1>Daniel Luis Projects</h1>
+        <ul>
+            {% for project in project_list %}
+                <li>{{ project.name }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>
