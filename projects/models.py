@@ -1,14 +1,25 @@
+from datetime import datetime
+
 from django.db import models
 
 
 class Technology(models.Model):
     name = models.CharField(max_length=100)
-    time_of_experience = models.CharField(max_length=50)
+    date_experience_began = models.DateField()
+    icon_name = models.CharField(max_length=50)
 
     base_tech = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    def time_of_experience(self) -> str:
+        years_difference = datetime.now().year - self.date_experience_began.year
+        
+        if years_difference == 0:
+            return f'<1 year'
+
+        return f'+{years_difference} years'
 
 
 def validate_is_image(file):
@@ -27,12 +38,23 @@ class MediaFile(models.Model):
 
 
 class Project(models.Model):
+
+    class ProjectCategory(models.TextChoices):
+        PERSONAL = 1, 'Personal'
+        PROFESSIONAL = 2, 'Professional'
+
     name = models.CharField(max_length=100)
     description = models.TextField()
     year_of_realization = models.IntegerField()
     time_invested = models.CharField(max_length=50)
     project_link = models.CharField(max_length=100)
     github_link = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    category = models.PositiveSmallIntegerField(
+        choices=ProjectCategory.choices,
+        default=ProjectCategory.PERSONAL,
+    )
+
 
     technologies = models.ManyToManyField(Technology, related_name='projects')
 

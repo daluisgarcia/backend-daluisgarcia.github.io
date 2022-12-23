@@ -25,11 +25,14 @@ class ProjectAdmin(admin.ModelAdmin):
 @admin.register(Technology)
 class TechnologyAdmin(admin.ModelAdmin):
     list_display = ('name', 'time_of_experience', 'get_parent_tech') # Fields to display in the list view
-    list_filter = ['time_of_experience'] # Add a filter sidebar
-    search_fields = ['name', 'time_of_experience'] # Add a search box
+    search_fields = ['name'] # Add a search box
 
     @admin.display(description='Parent technology')
     def get_parent_tech(self, obj):
         if obj.base_tech:
             return obj.base_tech.name
         return ''
+
+    @admin.display(description='Time of experience')
+    def time_of_experience(self, obj):
+        return obj.time_of_experience()
