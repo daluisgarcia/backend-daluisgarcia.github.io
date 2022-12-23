@@ -9,4 +9,6 @@ First of all you can create a ```.env``` file in the root directory of the proje
 
 Then you need to run the command ```python manage.py migrate``` to create the database. 
 
+When the migration is complited, you can create a superuser with the command ```python manage.py createsuperuser```.
+
 Finally you can run the project with the command ```python manage.py runserver```.
