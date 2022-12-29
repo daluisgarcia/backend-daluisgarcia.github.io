@@ -12,7 +12,7 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
     """
-    queryset = Project.objects.all()
+    queryset = Project.objects.filter(is_active=True)
     serializer_class = ProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
 
