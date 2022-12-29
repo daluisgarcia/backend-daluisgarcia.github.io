@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Project, Technology, MediaFile
+from .models import Project, Technology, MediaFile, DevelopmentMethodology, ProjectField
 
 
 class FilesInline(admin.TabularInline):
@@ -12,8 +12,8 @@ class FilesInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'year_of_realization', 'get_technologies_names') # Fields to display in the list view
-    list_filter = ['year_of_realization'] # Add a filter sidebar
+    list_display = ('name', 'get_technologies_names', 'year_of_realization', 'is_active') # Fields to display in the list view
+    list_filter = ['year_of_realization', 'is_active'] # Add a filter sidebar
     search_fields = ['name', 'year_of_realization'] # Add a search box
     inlines = [FilesInline]
 
@@ -24,7 +24,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(Technology)
 class TechnologyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'time_of_experience', 'get_parent_tech') # Fields to display in the list view
+    list_display = ('name', 'time_of_experience', 'tech_domain', 'get_parent_tech') # Fields to display in the list view
     search_fields = ['name'] # Add a search box
 
     @admin.display(description='Parent technology')
@@ -36,3 +36,15 @@ class TechnologyAdmin(admin.ModelAdmin):
     @admin.display(description='Time of experience')
     def time_of_experience(self, obj):
         return obj.time_of_experience()
+
+
+@admin.register(DevelopmentMethodology)
+class DevelopmentMethodologyAdmin(admin.ModelAdmin):
+    list_display = ('name',) # Fields to display in the list view
+    search_fields = ['name'] # Add a search box
+
+
+@admin.register(ProjectField)
+class ProjectFieldAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ['name']

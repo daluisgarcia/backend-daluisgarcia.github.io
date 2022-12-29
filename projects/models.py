@@ -1,12 +1,17 @@
 from datetime import datetime
 
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Technology(models.Model):
     name = models.CharField(max_length=100)
     date_experience_began = models.DateField()
     icon_name = models.CharField(max_length=50)
+    tech_domain = models.IntegerField(
+        default = 1,
+        validators=[MaxValueValidator(100), MinValueValidator(1)]
+    )
 
     base_tech = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -37,26 +42,42 @@ class MediaFile(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE, related_name='media_files')
 
 
+class DevelopmentMethodology(models.Model):
+    name = models.CharField(max_length=60)
+
+    def __str__(self):
+        return self.name
+
+
+class ProjectField(models.Model):
+    name = models.CharField(max_length=60)
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
 
-    class ProjectCategory(models.TextChoices):
-        PERSONAL = 1, 'Personal'
-        PROFESSIONAL = 2, 'Professional'
+    class ProjectPurpose(models.TextChoices):
+        PERSONAL = 'Personal', 'Personal'
+        PROFESSIONAL = 'Professional', 'Professional'
 
     name = models.CharField(max_length=100)
     description = models.TextField()
     year_of_realization = models.IntegerField()
     time_invested = models.CharField(max_length=50)
-    project_link = models.CharField(max_length=100)
-    github_link = models.CharField(max_length=100)
+    project_link = models.CharField(max_length=100, blank=True)
+    github_link = models.CharField(max_length=100, blank=True)
     is_active = models.BooleanField(default=True)
-    category = models.PositiveSmallIntegerField(
-        choices=ProjectCategory.choices,
-        default=ProjectCategory.PERSONAL,
+    purpose = models.CharField(
+        max_length=12,
+        choices=ProjectPurpose.choices,
+        default=ProjectPurpose.PERSONAL,
     )
 
-
+    tech_fields = models.ManyToManyField(ProjectField, related_name='projects')
     technologies = models.ManyToManyField(Technology, related_name='projects')
+    methodology_used = models.ForeignKey(DevelopmentMethodology, on_delete=models.SET_NULL, related_name='projects', null=True)
 
 
     def __str__(self):
