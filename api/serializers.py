@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from projects.models import Project, MediaFile, Technology
+from projects.models import Project, MediaFile, Technology, DevelopmentMethodology, ProjectField
 
 
 class MediaFileSerializer(serializers.HyperlinkedModelSerializer):
@@ -30,3 +30,15 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Project
         fields = ('id', 'name', 'description', 'year_of_realization', 'time_invested', 'project_link', 'github_link', 'media_files', 'technologies')
+
+
+class DevelopmentMethodologySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = DevelopmentMethodology
+        fields = ('id', 'name',)
+
+
+class ProjectFieldSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ProjectField
+        fields = ('id', 'name',)
