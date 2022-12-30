@@ -33,9 +33,9 @@ environ.Env.read_env(BASE_DIR / ".env")
 SECRET_KEY = env('SECRET_KEY', default="unsafe-secret-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = str(env('ALLOWED_HOSTS', default='')).split(',')
 
 
 # Application definition
@@ -136,6 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static") # for production collectstatic command
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
