@@ -20,7 +20,7 @@ class TechnologySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Technology
-        fields = ('id', 'name', 'time_of_experience', 'base_tech')
+        fields = ('id', 'name', 'time_of_experience', 'icon_name', 'base_tech')
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
