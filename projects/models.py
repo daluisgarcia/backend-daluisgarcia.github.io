@@ -82,3 +82,7 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+    
+    def methodology(self) -> str:
+        return self.methodology_used.name

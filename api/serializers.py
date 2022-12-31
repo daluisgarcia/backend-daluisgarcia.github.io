@@ -29,7 +29,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'description', 'year_of_realization', 'time_invested', 'project_link', 'github_link', 'media_files', 'technologies')
+        fields = ('id', 'name', 'description', 'year_of_realization', 'purpose', 'time_invested', 'project_link', 'github_link', 'media_files', 'technologies', 'methodology')
 
 
 class DevelopmentMethodologySerializer(serializers.HyperlinkedModelSerializer):
