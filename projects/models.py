@@ -5,6 +5,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Technology(models.Model):
+    # class TechnologyType(models.TextChoices):
+    #     LANGUAGE = 'Language', 'Language'
+    #     FRAMEWORK = 'Framework', 'Framework'
+
     name = models.CharField(max_length=100)
     date_experience_began = models.DateField()
     icon_name = models.CharField(max_length=50)
@@ -12,6 +16,11 @@ class Technology(models.Model):
         default = 1,
         validators=[MaxValueValidator(100), MinValueValidator(1)]
     )
+    # type = models.CharField(
+    #     max_length=12,
+    #     choices=TechnologyType.choices,
+    #     default=TechnologyType.LANGUAGE,
+    # )
 
     base_tech = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -51,6 +60,7 @@ class DevelopmentMethodology(models.Model):
 
 class ProjectField(models.Model):
     name = models.CharField(max_length=60)
+    icon_name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name

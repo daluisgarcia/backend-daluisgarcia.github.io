@@ -26,7 +26,7 @@ class TechnologySerializer(serializers.HyperlinkedModelSerializer):
 class ProjectFieldSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ProjectField
-        fields = ('id', 'name',)
+        fields = ('id', 'name', 'icon_name',)
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
