@@ -23,22 +23,22 @@ class TechnologySerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'time_of_experience', 'icon_name', 'base_tech')
 
 
+class ProjectFieldSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ProjectField
+        fields = ('id', 'name',)
+
+
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     media_files = MediaFileSerializer(many=True, read_only=True)
     technologies = TechnologySerializer(many=True, read_only=True)
-
+    tech_fields = ProjectFieldSerializer(many=True, read_only=True)
     class Meta:
         model = Project
-        fields = ('id', 'name', 'description', 'year_of_realization', 'purpose', 'time_invested', 'project_link', 'github_link', 'media_files', 'technologies', 'methodology')
+        fields = ('id', 'name', 'description', 'year_of_realization', 'purpose', 'time_invested', 'project_link', 'github_link', 'media_files', 'technologies', 'methodology', 'tech_fields')
 
 
 class DevelopmentMethodologySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DevelopmentMethodology
-        fields = ('id', 'name',)
-
-
-class ProjectFieldSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = ProjectField
         fields = ('id', 'name',)
