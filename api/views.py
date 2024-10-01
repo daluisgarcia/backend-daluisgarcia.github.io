@@ -10,7 +10,7 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     """
     This viewset automatically provides `list` and `retrieve` actions.
     """
-    queryset = Project.objects.filter(is_active=True)
+    queryset = Project.objects.filter(is_active=True).order_by('-priority')
     serializer_class = ProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -20,7 +20,7 @@ class TechnologyViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Technology.objects.all()
+    queryset = Technology.objects.filter(is_active=True)
     serializer_class = TechnologySerializer
     permission_classes = [permissions.IsAuthenticated]
 

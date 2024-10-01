@@ -16,6 +16,11 @@ class Technology(models.Model):
         default = 1,
         validators=[MaxValueValidator(100), MinValueValidator(1)]
     )
+    is_active = models.BooleanField(default=True)
+    priority = models.IntegerField(
+        default = 1,
+        validators=[MaxValueValidator(100), MinValueValidator(1)
+    ])
     # type = models.CharField(
     #     max_length=12,
     #     choices=TechnologyType.choices,
@@ -83,6 +88,10 @@ class Project(models.Model):
         max_length=12,
         choices=ProjectPurpose.choices,
         default=ProjectPurpose.PERSONAL,
+    )
+    priority = models.IntegerField(
+        default = 1,
+        validators=[MaxValueValidator(100), MinValueValidator(1)]
     )
 
     tech_fields = models.ManyToManyField(ProjectField, related_name='projects')
