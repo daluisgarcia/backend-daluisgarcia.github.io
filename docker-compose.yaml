@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysqlpassword"
+      MYSQL_DATABASE: "portfolio"
+    restart: always
+    volumes:
+      # Use this option to persist the MySQL DBs in a shared volume.
+      - ./mysqldata:/var/lib/mysql:rw,delegated
+      # Use this option to persist the MySQL DBs in a data volume.
+      # - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 3s
+      timeout: 1s
+      retries: 10
+
+  app:
+    container_name: portfolio-api
+    build: .
+    links:
+      - db
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY="justasecretkey"
+      - DATABASE_ENGINE=mysql
+      - DATABASE_NAME=portfolio
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=mysqlpassword
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+      - DEBUG=True
+      - ALLOWED_HOSTS=*

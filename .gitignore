@@ -2,3 +2,7 @@ __pycache__/
 .env
 *.sqlite
 media/
+
+# Docker environment
+mysqldata/
+docker-compose.override.yaml

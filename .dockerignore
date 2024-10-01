@@ -1,0 +1,13 @@
+__pycache__/*
+.pytest_cache/*
+.DS_Store
+*.pyc
+docker-compose.yml
+docker-compose.override.yml
+Dockerfile
+.git/*
+.gitignore
+README.md
+.env
+.env.example
+mysqldata/*
