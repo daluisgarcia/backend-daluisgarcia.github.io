@@ -93,6 +93,7 @@ class Project(models.Model):
         default = 1,
         validators=[MaxValueValidator(100), MinValueValidator(1)]
     )
+    pinned = models.BooleanField(default=False)
 
     tech_fields = models.ManyToManyField(ProjectField, related_name='projects')
     technologies = models.ManyToManyField(Technology, related_name='projects')

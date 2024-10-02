@@ -25,6 +25,7 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register(r'projects', views.ProjectViewSet)
+router.register(r'projects-pinned', views.PinnedProjectViewSet, basename='pinned-projects')
 router.register(r'technologies', views.TechnologyViewSet)
 router.register(r'methodologies', views.DevelopmentMethodologyViewSet)
 router.register(r'fields', views.ProjectFieldViewSet)
