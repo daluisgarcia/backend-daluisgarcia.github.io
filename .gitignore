@@ -2,6 +2,7 @@ __pycache__/
 .env
 *.sqlite
 media/
+static/
 
 # Docker environment
 mysqldata/

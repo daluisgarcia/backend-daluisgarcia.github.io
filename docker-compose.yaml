@@ -30,6 +30,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      - DEBUG=False
       - SECRET_KEY="justasecretkey"
       - DATABASE_ENGINE=mysql
       - DATABASE_NAME=portfolio
