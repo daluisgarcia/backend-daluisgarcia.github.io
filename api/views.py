@@ -30,7 +30,7 @@ class TechnologyViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Technology.objects.filter(is_active=True)
+    queryset = Technology.objects.filter(is_active=True).order_by('-priority')
     serializer_class = TechnologySerializer
     permission_classes = [permissions.IsAuthenticated]
 
